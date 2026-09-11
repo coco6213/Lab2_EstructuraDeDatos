@@ -1,15 +1,19 @@
-public class NodoDoble
+using System;
+namespace Lab2_EstructuraDeDatos
 {
-    public int Dato { get; set; }
-
-    public NodoDoble? Siguiente { get; set; }
-
-    public NodoDoble? Anterior { get; set; }
-
-    public NodoDoble(int dato)
+    public class NodoDoble
     {
-        Dato = dato;
-        Siguiente = null;
-        Anterior = null;
+        public int Dato { get; set; }
+
+        public NodoDoble? Siguiente { get; set; }
+
+        public NodoDoble? Anterior { get; set; }
+
+        public NodoDoble(int dato)
+        {
+            Dato = dato;
+            Siguiente = null;
+            Anterior = null;
+        }
     }
 }
