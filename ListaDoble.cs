@@ -1,14 +1,15 @@
 ﻿using System;
 namespace Lab2_EstructuraDeDatos
 {
-	public class ListaDoble
+	public partial class ListaDoble
 	{
-		private NodoDoble cabeza;
-        private NodoDoble cola;
-        public ListaDoble(NodoDoble cabeza, NodoDoble cola)
+		private NodoDoble? cabeza;
+		private NodoDoble? cola;
+
+		public ListaDoble()
 		{
-			this.cabeza = cabeza;
-			this.cola = cola;
+			cabeza = null;
+			cola = null;
 		}
 
 

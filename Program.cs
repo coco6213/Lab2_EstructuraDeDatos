@@ -34,23 +34,87 @@ namespace Lab2_EstructuraDeDatos
                 switch (opcion)
                 {
                     case 1:
-                        historial.Agregar(opcion);
+                        Console.Write("Ingrese el número a agregar al inicio: ");
+                        if (int.TryParse(Console.ReadLine() ?? "", out int datoInicio))
+                        {
+                            lista.agregarInicio(datoInicio);
+                            Console.WriteLine("Elemento agregado al inicio.");
+                            historial.Agregar(opcion);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Entrada inválida.");
+                        }
+                        Pausar();
                         break;
 
                     case 2:
-                        historial.Agregar(opcion);
+                        Console.Write("Ingrese el número a agregar al final: ");
+                        if (int.TryParse(Console.ReadLine() ?? "", out int datoFin))
+                        {
+                            lista.agregarFinal(datoFin);
+                            Console.WriteLine("Elemento agregado al final.");
+                            historial.Agregar(opcion);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Entrada inválida.");
+                        }
+                        Pausar();
                         break;
 
                     case 3:
-                        historial.Agregar(opcion);
+                        Console.Clear();
+                        Console.WriteLine("3. Eliminar - Elija opción:");
+                        Console.WriteLine("1. Eliminar inicio");
+                        Console.WriteLine("2. Eliminar fin");
+                        Console.WriteLine("3. Eliminar por posición");
+                        Console.Write("Seleccione: ");
+                        string entradaDel = Console.ReadLine() ?? "";
+                        if (int.TryParse(entradaDel, out int sub))
+                        {
+                            switch (sub)
+                            {
+                                case 1:
+                                    lista.EliminarInicio();
+                                    break;
+                                case 2:
+                                    lista.EliminarFin();
+                                    break;
+                                case 3:
+                                    Console.Write("Ingrese la posición a eliminar (1 = primero): ");
+                                    if (int.TryParse(Console.ReadLine() ?? "", out int pos))
+                                    {
+                                        lista.EliminarPorPosicion(pos);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Posición inválida.");
+                                    }
+                                    break;
+                                default:
+                                    Console.WriteLine("Opción inválida.");
+                                    break;
+                            }
+                            historial.Agregar(opcion);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Entrada inválida.");
+                        }
+                        Pausar();
                         break;
 
                     case 4:
+                        lista.ImprimirAdelante();
                         historial.Agregar(opcion);
+                        Pausar();
                         break;
 
                     case 5:
+                        lista.ImprimirAtras();
                         historial.Agregar(opcion);
+                        Pausar();
                         break;
 
                     case 6:
@@ -85,25 +149,24 @@ namespace Lab2_EstructuraDeDatos
                 }
              while (opcion != 8);
         }
-            static void EjecutarOpcion(int opcion)
+
+
+            // Sobrecarga que acepta la lista para permitir re-ejecución desde Historial
+            static void EjecutarOpcion(int opcion, ListaDoble lista)
             {
                 switch (opcion)
                 {
-                   
-                    case 1:
-                        
-                        break;
-                    case 2:
-                        
-                        break;
-                    case 3:
-                       
-                        break;
                     case 4:
-                       
+                        lista.ImprimirAdelante();
+                        Pausar();
                         break;
                     case 5:
-                       
+                        lista.ImprimirAtras();
+                        Pausar();
+                        break;
+                    default:
+                        Console.WriteLine("Esta acción no se puede reproducir al navegar (requiere entrada del usuario).");
+                        Pausar();
                         break;
                 }
             }
