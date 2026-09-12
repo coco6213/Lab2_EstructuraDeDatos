@@ -14,7 +14,7 @@ namespace Lab2_EstructuraDeDatos
             {
                 Console.Clear();
                 Console.WriteLine("====================================");
-                Console.WriteLine("       --------------------         ");
+                Console.WriteLine("        REGISTRO Y NAVEGACIÓN       ");
                 Console.WriteLine("====================================");
                 Console.WriteLine("1. Agregar al inicio");
                 Console.WriteLine("2. Agregar al final");
@@ -39,12 +39,13 @@ namespace Lab2_EstructuraDeDatos
                         {
                             lista.agregarInicio(datoInicio);
                             Console.WriteLine("Elemento agregado al inicio.");
-                            historial.Agregar(opcion);
+                           
                         }
                         else
                         {
                             Console.WriteLine("Entrada inválida.");
                         }
+                        historial.Agregar(opcion);
                         Pausar();
                         break;
 
@@ -54,12 +55,12 @@ namespace Lab2_EstructuraDeDatos
                         {
                             lista.agregarFinal(datoFin);
                             Console.WriteLine("Elemento agregado al final.");
-                            historial.Agregar(opcion);
                         }
                         else
                         {
                             Console.WriteLine("Entrada inválida.");
                         }
+                        historial.Agregar(opcion);
                         Pausar();
                         break;
 
@@ -96,13 +97,15 @@ namespace Lab2_EstructuraDeDatos
                                     Console.WriteLine("Opción inválida.");
                                     break;
                             }
-                            historial.Agregar(opcion);
+                 
                         }
                         else
                         {
                             Console.WriteLine("Entrada inválida.");
                         }
+                        historial.Agregar(opcion);
                         Pausar();
+
                         break;
 
                     case 4:
@@ -156,20 +159,96 @@ namespace Lab2_EstructuraDeDatos
             {
                 switch (opcion)
                 {
-                    case 4:
-                        lista.ImprimirAdelante();
-                        Pausar();
-                        break;
-                    case 5:
-                        lista.ImprimirAtras();
-                        Pausar();
-                        break;
-                    default:
-                        Console.WriteLine("Esta acción no se puede reproducir al navegar (requiere entrada del usuario).");
-                        Pausar();
-                        break;
-                }
+                case 1:
+                    Console.Write("Ingrese el número a agregar al inicio: ");
+                    if (int.TryParse(Console.ReadLine() ?? "", out int datoInicio))
+                    {
+                        lista.agregarInicio(datoInicio);
+                        Console.WriteLine("Elemento agregado al inicio.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Entrada inválida.");
+                    }
+                    Pausar();
+                    break;
+
+                case 2:
+                    Console.Write("Ingrese el número a agregar al final: ");
+                    if (int.TryParse(Console.ReadLine() ?? "", out int datoFin))
+                    {
+                        lista.agregarFinal(datoFin);
+                        Console.WriteLine("Elemento agregado al final.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Entrada inválida.");
+                    }
+                    Pausar();
+                    break;
+
+                case 3:
+                    Console.Clear();
+                    Console.WriteLine("3. Eliminar - Elija opción:");
+                    Console.WriteLine("1. Eliminar inicio");
+                    Console.WriteLine("2. Eliminar fin");
+                    Console.WriteLine("3. Eliminar por posición");
+                    Console.Write("Seleccione: ");
+                    string entradaDel = Console.ReadLine() ?? "";
+                    if (int.TryParse(entradaDel, out int sub))
+                    {
+                        switch (sub)
+                        {
+                            case 1:
+                                lista.EliminarInicio();
+                                break;
+                            case 2:
+                                lista.EliminarFin();
+                                break;
+                            case 3:
+                                Console.Write("Ingrese la posición a eliminar (1 = primero): ");
+                                if (int.TryParse(Console.ReadLine() ?? "", out int pos))
+                                {
+                                    lista.EliminarPorPosicion(pos);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Posición inválida.");
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("Opción inválida.");
+                                break;
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Entrada inválida.");
+                    }
+                    
+                    Pausar();
+
+                    break;
+
+                case 4:
+                    lista.ImprimirAdelante();
+                   
+                    Pausar();
+                    break;
+
+                case 5:
+                    lista.ImprimirAtras();
+                    
+                    Pausar();
+                    break;
+
+                default:
+                    Console.WriteLine("\nOpción inválida.");
+                    Pausar();
+                    break;
             }
+        }
 
             static void Pausar()
         {
