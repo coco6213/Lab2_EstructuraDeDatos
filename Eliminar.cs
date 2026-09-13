@@ -12,18 +12,23 @@ namespace Lab2_EstructuraDeDatos
                 return;
             }
 
+            NodoDoble? eliminado = cabeza;
+
             if (cabeza == cola)
             {
-                // Un solo nodo
                 cabeza = null;
                 cola = null;
                 Console.WriteLine("Elemento eliminado (inicio). La lista quedó vacía.");
                 return;
             }
 
+            NodoDoble? antiguaCabeza = cabeza;
             cabeza = cabeza!.Siguiente;
             if (cabeza != null)
                 cabeza.Anterior = null;
+
+            if (actualNavegacion == antiguaCabeza)
+                actualNavegacion = cabeza;
 
             Console.WriteLine("Elemento eliminado del inicio.");
         }
@@ -36,6 +41,8 @@ namespace Lab2_EstructuraDeDatos
                 return;
             }
 
+            NodoDoble? antiguaCola = cola;
+
             if (cabeza == cola)
             {
                 cabeza = null;
@@ -47,6 +54,9 @@ namespace Lab2_EstructuraDeDatos
             cola = cola!.Anterior;
             if (cola != null)
                 cola.Siguiente = null;
+
+            if (actualNavegacion == antiguaCola)
+                actualNavegacion = cola;
 
             Console.WriteLine("Elemento eliminado del final.");
         }
@@ -92,7 +102,6 @@ namespace Lab2_EstructuraDeDatos
                 return;
             }
 
-            // Conectar anterior con siguiente
             NodoDoble? ant = actual.Anterior;
             NodoDoble? sig = actual.Siguiente;
 
@@ -101,7 +110,50 @@ namespace Lab2_EstructuraDeDatos
             if (sig != null)
                 sig.Anterior = ant;
 
+            if (actualNavegacion == actual)
+            {
+                if (sig != null)
+                    actualNavegacion = sig;
+                else
+                    actualNavegacion = cabeza;
+            }
+
             Console.WriteLine($"Elemento en posición {posicion} eliminado.");
+        }
+        public void ImprimirConIndices()
+        {
+            if (cabeza == null)
+            {
+                Console.WriteLine("La lista está vacía.");
+                return;
+            }
+
+            NodoDoble? actual = cabeza;
+            int indice = 1;
+            Console.Write("Lista con posiciones: ");
+            while (actual != null)
+            {
+                Console.Write($"{indice}:{actual.Dato} ");
+                actual = actual.Siguiente;
+                indice++;
+            }
+            Console.WriteLine();
+        }
+
+        public void EliminarPorPosicionInteractiva()
+        {
+            ImprimirConIndices();
+
+            Console.Write("Ingrese la posición a eliminar (1 = primero): ");
+            string entrada = Console.ReadLine() ?? "";
+            if (int.TryParse(entrada, out int pos))
+            {
+                EliminarPorPosicion(pos);
+            }
+            else
+            {
+                Console.WriteLine("Posición inválida.");
+            }
         }
     }
 }

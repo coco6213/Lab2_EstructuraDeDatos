@@ -54,9 +54,5 @@ namespace Lab2_EstructuraDeDatos
             return actual.Dato;
         }
 
-        public int? ObtenerActual()
-        {
-            return actual?.Dato;
-        }
     }
 }

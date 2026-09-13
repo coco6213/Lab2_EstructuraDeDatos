@@ -6,10 +6,13 @@ namespace Lab2_EstructuraDeDatos
 		private NodoDoble? cabeza;
 		private NodoDoble? cola;
 
+		private NodoDoble? actualNavegacion;
+
 		public ListaDoble()
 		{
 			cabeza = null;
 			cola = null;
+			actualNavegacion = null;
 		}
 
 
@@ -21,6 +24,7 @@ namespace Lab2_EstructuraDeDatos
 			{
 				cabeza = nuevo;
 				cola = nuevo;
+				actualNavegacion = cabeza;
 			}
 			else
 			{
@@ -39,6 +43,7 @@ namespace Lab2_EstructuraDeDatos
             {
                 cabeza = nuevo;
                 cola = nuevo;
+				actualNavegacion = cabeza;
             }
             else
             {
@@ -48,6 +53,15 @@ namespace Lab2_EstructuraDeDatos
             }
         }
 
+		public int? ObtenerActual()
+		{
+			if (actualNavegacion == null && cabeza != null)
+			{
+				actualNavegacion = cabeza;
+				return actualNavegacion.Dato;
+			}
+			return actualNavegacion?.Dato;
+		}
 
     }
 

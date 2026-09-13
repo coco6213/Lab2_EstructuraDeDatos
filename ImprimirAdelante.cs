@@ -4,22 +4,35 @@ namespace Lab2_EstructuraDeDatos
 {
     public partial class ListaDoble
     {
-        public void ImprimirAdelante()
+        public int? MoverAdelante_Impl()
         {
             if (cabeza == null)
             {
                 Console.WriteLine("La lista está vacía.");
-                return;
+                return null;
             }
 
-            NodoDoble? actual = cabeza;
-            Console.Write("Lista (adelante): ");
-            while (actual != null)
+            if (actualNavegacion == null)
             {
-                Console.Write(actual.Dato + " ");
-                actual = actual.Siguiente;
+                actualNavegacion = cabeza;
+                if (actualNavegacion == null) return null;
+                if (actualNavegacion.Siguiente != null)
+                {
+                    actualNavegacion = actualNavegacion.Siguiente;
+                    return actualNavegacion.Dato;
+                }
+                Console.WriteLine("No hay un siguiente elemento.");
+                return null;
             }
-            Console.WriteLine();
+
+            if (actualNavegacion.Siguiente == null)
+            {
+                Console.WriteLine("No hay un siguiente elemento.");
+                return null;
+            }
+
+            actualNavegacion = actualNavegacion.Siguiente;
+            return actualNavegacion.Dato;
         }
     }
 }

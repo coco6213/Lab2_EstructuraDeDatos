@@ -1,13 +1,18 @@
-﻿using System;
+using System;
 
 namespace Lab2_EstructuraDeDatos
 {
     class Program
     {
+        static ListaDoble lista = new ListaDoble();
+
         static void Main(string[] args)
         {
-            ListaDoble lista = new ListaDoble();
-            Historial historial = new Historial(); 
+            Run();
+        }
+
+        static void Run()
+        {
             int opcion;
 
             do
@@ -19,11 +24,8 @@ namespace Lab2_EstructuraDeDatos
                 Console.WriteLine("1. Agregar al inicio");
                 Console.WriteLine("2. Agregar al final");
                 Console.WriteLine("3. Eliminar");
-                Console.WriteLine("4. Imprimir adelante");
-                Console.WriteLine("5. Imprimir atrás");
-                Console.WriteLine("6. Ir hacia atrás (navegar)");
-                Console.WriteLine("7. Ir hacia adelante (navegar)");
-                Console.WriteLine("8. Salir");
+                Console.WriteLine("4. Navegar");
+                Console.WriteLine("5. Salir");
                 Console.WriteLine("====================================");
                 Console.Write("Registra la opción requerida: ");
                 string entrada = Console.ReadLine() ?? "";
@@ -34,223 +36,139 @@ namespace Lab2_EstructuraDeDatos
                 switch (opcion)
                 {
                     case 1:
-                        Console.Write("Ingrese el número a agregar al inicio: ");
-                        if (int.TryParse(Console.ReadLine() ?? "", out int datoInicio))
-                        {
-                            lista.agregarInicio(datoInicio);
-                            Console.WriteLine("Elemento agregado al inicio.");
-                           
-                        }
-                        else
-                        {
-                            Console.WriteLine("Entrada inválida.");
-                        }
-                        historial.Agregar(opcion);
-                        Pausar();
+                        AgregarInicio();
                         break;
-
                     case 2:
-                        Console.Write("Ingrese el número a agregar al final: ");
-                        if (int.TryParse(Console.ReadLine() ?? "", out int datoFin))
-                        {
-                            lista.agregarFinal(datoFin);
-                            Console.WriteLine("Elemento agregado al final.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Entrada inválida.");
-                        }
-                        historial.Agregar(opcion);
-                        Pausar();
+                        AgregarFinal();
                         break;
-
                     case 3:
-                        Console.Clear();
-                        Console.WriteLine("3. Eliminar - Elija opción:");
-                        Console.WriteLine("1. Eliminar inicio");
-                        Console.WriteLine("2. Eliminar fin");
-                        Console.WriteLine("3. Eliminar por posición");
-                        Console.Write("Seleccione: ");
-                        string entradaDel = Console.ReadLine() ?? "";
-                        if (int.TryParse(entradaDel, out int sub))
-                        {
-                            switch (sub)
-                            {
-                                case 1:
-                                    lista.EliminarInicio();
-                                    break;
-                                case 2:
-                                    lista.EliminarFin();
-                                    break;
-                                case 3:
-                                    Console.Write("Ingrese la posición a eliminar (1 = primero): ");
-                                    if (int.TryParse(Console.ReadLine() ?? "", out int pos))
-                                    {
-                                        lista.EliminarPorPosicion(pos);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Posición inválida.");
-                                    }
-                                    break;
-                                default:
-                                    Console.WriteLine("Opción inválida.");
-                                    break;
-                            }
-                 
-                        }
-                        else
-                        {
-                            Console.WriteLine("Entrada inválida.");
-                        }
-                        historial.Agregar(opcion);
-                        Pausar();
-
+                        EliminarMenu();
                         break;
-
                     case 4:
-                        lista.ImprimirAdelante();
-                        historial.Agregar(opcion);
-                        Pausar();
+                        NavegarMenu();
                         break;
-
                     case 5:
-                        lista.ImprimirAtras();
-                        historial.Agregar(opcion);
-                        Pausar();
-                        break;
-
-                    case 6:
-                        int? anterior = historial.Retroceder();
-                        if (anterior.HasValue)
-                            EjecutarOpcion(anterior.Value, lista);
-                        else
-                            Pausar();
-                        break;
-
-
-                    case 7:
-                        int? siguiente = historial.Avanzar();
-                        if (siguiente.HasValue)
-                            EjecutarOpcion(siguiente.Value, lista);
-                        else
-                            Pausar();
-                        break;
-
-                    case 8:
                         Console.WriteLine("\nGracias por su preferencia");
                         break;
-
-
                     default:
                         Console.WriteLine("\nOpción inválida.");
                         Pausar();
                         break;
                 }
 
-
-                }
-             while (opcion != 8);
+            } while (opcion != 5);
         }
 
-
-            // Sobrecarga que acepta la lista para permitir re-ejecución desde Historial
-            static void EjecutarOpcion(int opcion, ListaDoble lista)
+        static void AgregarInicio()
+        {
+            Console.Write("Ingrese el número a agregar al inicio: ");
+            if (int.TryParse(Console.ReadLine() ?? "", out int datoInicio))
             {
-                switch (opcion)
+                lista.agregarInicio(datoInicio);
+                Console.WriteLine("Elemento agregado al inicio.");
+            }
+            else
+            {
+                Console.WriteLine("Entrada inválida.");
+            }
+            Pausar();
+        }
+
+        static void AgregarFinal()
+        {
+            Console.Write("Ingrese el número a agregar al final: ");
+            if (int.TryParse(Console.ReadLine() ?? "", out int datoFin))
+            {
+                lista.agregarFinal(datoFin);
+                Console.WriteLine("Elemento agregado al final.");
+            }
+            else
+            {
+                Console.WriteLine("Entrada inválida.");
+            }
+            Pausar();
+        }
+
+        static void EliminarMenu()
+        {
+            Console.Clear();
+            Console.WriteLine(" Eliminar - Elija opción:");
+            Console.WriteLine("1. Eliminar inicio");
+            Console.WriteLine("2. Eliminar fin");
+            Console.WriteLine("3. Eliminar por posición");
+            Console.Write("Seleccione: ");
+            string entradaDel = Console.ReadLine() ?? "";
+            if (int.TryParse(entradaDel, out int sub))
+            {
+                switch (sub)
                 {
-                case 1:
-                    Console.Write("Ingrese el número a agregar al inicio: ");
-                    if (int.TryParse(Console.ReadLine() ?? "", out int datoInicio))
-                    {
-                        lista.agregarInicio(datoInicio);
-                        Console.WriteLine("Elemento agregado al inicio.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Entrada inválida.");
-                    }
-                    Pausar();
-                    break;
+                    case 1:
+                        lista.EliminarInicio();
+                        break;
+                    case 2:
+                        lista.EliminarFin();
+                        break;
+                    case 3:
+                        lista.EliminarPorPosicionInteractiva();
+                        break;
+                    default:
+                        Console.WriteLine("Opción inválida.");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Entrada inválida.");
+            }
+            Pausar();
+        }
 
-                case 2:
-                    Console.Write("Ingrese el número a agregar al final: ");
-                    if (int.TryParse(Console.ReadLine() ?? "", out int datoFin))
-                    {
-                        lista.agregarFinal(datoFin);
-                        Console.WriteLine("Elemento agregado al final.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Entrada inválida.");
-                    }
-                    Pausar();
-                    break;
+        static void NavegarMenu()
+        {
+            bool salirNavegacion = false;
 
-                case 3:
-                    Console.Clear();
-                    Console.WriteLine("3. Eliminar - Elija opción:");
-                    Console.WriteLine("1. Eliminar inicio");
-                    Console.WriteLine("2. Eliminar fin");
-                    Console.WriteLine("3. Eliminar por posición");
-                    Console.Write("Seleccione: ");
-                    string entradaDel = Console.ReadLine() ?? "";
-                    if (int.TryParse(entradaDel, out int sub))
-                    {
-                        switch (sub)
-                        {
-                            case 1:
-                                lista.EliminarInicio();
-                                break;
-                            case 2:
-                                lista.EliminarFin();
-                                break;
-                            case 3:
-                                Console.Write("Ingrese la posición a eliminar (1 = primero): ");
-                                if (int.TryParse(Console.ReadLine() ?? "", out int pos))
-                                {
-                                    lista.EliminarPorPosicion(pos);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Posición inválida.");
-                                }
-                                break;
-                            default:
-                                Console.WriteLine("Opción inválida.");
-                                break;
-                        }
+            while (!salirNavegacion)
+            {
+                Console.Clear();
+                int? actual = lista.ObtenerActual();
+                if (actual.HasValue)
+                    Console.WriteLine($"Actual: {actual.Value}");
+                else
+                    Console.WriteLine("No hay elemento seleccionado. Usa 'Ir hacia adelante' o 'Ir hacia atrás' para iniciar.");
 
-                    }
-                    else
-                    {
-                        Console.WriteLine("Entrada inválida.");
-                    }
-                    
-                    Pausar();
-
-                    break;
-
-                case 4:
-                    lista.ImprimirAdelante();
-                   
-                    Pausar();
-                    break;
-
-                case 5:
-                    lista.ImprimirAtras();
-                    
-                    Pausar();
-                    break;
-
-                default:
-                    Console.WriteLine("\nOpción inválida.");
-                    Pausar();
-                    break;
+                Console.WriteLine("==== NAVEGACIÓN ====");
+                Console.WriteLine("1. Ir hacia adelante");
+                Console.WriteLine("2. Ir hacia atrás");
+                Console.WriteLine("3. Salir navegación");
+                Console.Write("Seleccione: ");
+                string nav = Console.ReadLine() ?? "";
+                if (!int.TryParse(nav, out int navOpc)) navOpc = 0;
+                switch (navOpc)
+                {
+                    case 1:
+                        int? a = lista.MoverAdelante_Impl();
+                        if (a.HasValue)
+                            Console.WriteLine($"Actual: {a.Value}");
+                        Pausar();
+                        break;
+                    case 2:
+                        int? b = lista.MoverAtras_Impl();
+                        if (b.HasValue)
+                            Console.WriteLine($"Actual: {b.Value}");
+                        Pausar();
+                        break;
+                    case 3:
+                        salirNavegacion = true;
+                        break;
+                    default:
+                        Console.WriteLine("Opción inválida.");
+                        Pausar();
+                        break;
+                }
             }
         }
 
-            static void Pausar()
+        static void Pausar()
         {
             Console.WriteLine("\nPresione ENTER para continuar...");
             Console.ReadLine();
